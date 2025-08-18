@@ -10,6 +10,6 @@ export class VisaIdService {
   constructor(private httpClient: HttpClient) { }
 
   getVisaId(): Observable<any> {
-    return this.httpClient.get('http://176.9.184.190/api/LegalAffairs/FillVendor?Id=0&text=&Direction=ltr&InCT');
+    return this.httpClient.get('https://test.erppluscloud.com:4338/api/LegalAffairs/FillVendor?Id=0&text=&Direction=ltr&InCT');
   }
 }

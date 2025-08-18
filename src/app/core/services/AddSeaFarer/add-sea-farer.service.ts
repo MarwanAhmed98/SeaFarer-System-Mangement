@@ -9,7 +9,7 @@ export class AddSeaFarerService {
 
   constructor(private httpClient: HttpClient) { }
   AddFarer(Data: object): Observable<any> {
-    return this.httpClient.post('http://176.9.184.190/api/MarineServices/SaveSeafarer', Data, {
+    return this.httpClient.post('https://test.erppluscloud.com:4338/api/MarineServices/SaveSeafarer', Data, {
       headers: { 'Content-Type': 'application/json' }
     });
   }

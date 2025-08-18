@@ -10,7 +10,7 @@ export class ActiveService {
   constructor(private httpClient: HttpClient) { }
   ActivateSeaFarer(id: number, status: number, empId: number): Observable<any> {
     return this.httpClient.post(
-      `http://176.9.184.190/api/MarineServices/ActivateAndInActivateSeafarer?Id=${id}&Status=${status}&EmpId=${empId}`,
+      `https://test.erppluscloud.com:4338/api/MarineServices/ActivateAndInActivateSeafarer?Id=${id}&Status=${status}&EmpId=${empId}`,
       {}
     );
   }

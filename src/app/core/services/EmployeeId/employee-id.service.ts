@@ -10,6 +10,6 @@ export class EmployeeIdService {
   constructor(private httpClient: HttpClient) { }
 
   getEmployeeId(): Observable<any> {
-    return this.httpClient.get('http://176.9.184.190/api/POS/FillEmployee?Id=0&text=&Direction=ltr&InCT');
+    return this.httpClient.get('https://test.erppluscloud.com:4338/api/POS/FillEmployee?Id=0&text=&Direction=ltr&InCT');
   }
 }

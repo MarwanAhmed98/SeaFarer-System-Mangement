@@ -10,6 +10,6 @@ export class AllSeaFarersService {
   constructor(private httpClient: HttpClient) { }
 
   getAllSeaFarers(): Observable<any> {
-    return this.httpClient.get('http://176.9.184.190/api/MarineServices/GetAllSeafarers?Direction=ltr&InCT');
+    return this.httpClient.get('https://test.erppluscloud.com:4338/api/MarineServices/GetAllSeafarers?Direction=ltr&InCT');
   }
 }
