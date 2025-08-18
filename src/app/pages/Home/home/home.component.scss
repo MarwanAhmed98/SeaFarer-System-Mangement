@@ -1,5 +1,6 @@
 h1,
-p {
+p,
+label {
   font-family: "Rubik", serif;
 }
 
@@ -16,22 +17,6 @@ th {
 .MyTable {
   margin-top: 100px;
 }
-
-// .custom-modal {
-//   max-width: 75vw;
-//   min-height: 100vh;
-// }
-
-// .custom-modal .modal-content {
-//   min-height: 100vh;
-// }
-
-// .MyInput {
-//   padding: 5px 60px !important;
-//   margin-top: 5px;
-//   border-radius: 10px !important;
-// }
-
 .alert-message {
   font-size: 0.9rem;
   padding: 10px;
