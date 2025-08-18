@@ -1,0 +1,32 @@
+
+<div class="container mt-5 login-container">
+  <div class="card shadow-lg">
+    <h2 class="text-center my-4 card-title">Login</h2>
+    <form [formGroup]="LoginForm" (ngSubmit)="SubmitForm()" class="p-4">
+      <div class="mb-3 form-group">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-control form-input" formControlName="username" placeholder="Enter username">
+        <div class="text-danger mt-1 error-message"
+          *ngIf="LoginForm.get('username')?.touched && LoginForm.get('username')?.invalid">
+          Username is required
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control form-input" formControlName="password" placeholder="Enter password">
+        <div class="text-danger mt-1 error-message"
+          *ngIf="LoginForm.get('password')?.touched && LoginForm.get('password')?.invalid">
+          Password must be at least 6 characters
+        </div>
+      </div>
+      <div class="mb-3 text-center">
+        <div *ngIf="isLoading" class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div *ngIf="isErr" class="alert alert-danger mt-2 alert-message">{{isErr}}</div>
+        <div *ngIf="isSuccess" class="alert alert-success mt-2 alert-message">{{isSuccess}}</div>
+      </div>
+      <button type="submit" class="btn btn-primary w-100 login-btn" [disabled]="LoginForm.invalid">Login</button>
+    </form>
+  </div>
+</div>

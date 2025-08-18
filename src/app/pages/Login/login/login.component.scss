@@ -1,0 +1,116 @@
+
+.login-container {
+    max-width: 400px;
+    margin: 5rem auto;
+    padding: 0 15px;
+}
+.card {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-title {
+    color: #333;
+    font-weight: 600;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+}
+.form-group {
+    position: relative;
+}
+
+.form-label {
+    color: #444;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.form-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+    outline: none;
+    background: #f8f9fa;
+}
+.form-input::placeholder {
+    color: #adb5bd;
+    font-size: 0.9rem;
+}
+
+.error-message {
+    font-size: 0.85rem;
+    color: #dc3545;
+    margin-top: 0.25rem;
+}
+
+.alert-message {
+    font-size: 0.9rem;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 0;
+}
+
+.login-btn {
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background: linear-gradient(90deg, #0056b3, #003d80);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+.login-btn:disabled {
+    background: #adb5bd;
+    cursor: not-allowed;
+}
+
+.spinner-border {
+    width: 2rem;
+    height: 2rem;
+}
+
+@media (max-width: 576px) {
+    .login-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+    }
+
+    .login-btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}

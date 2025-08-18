@@ -1,0 +1,474 @@
+
+<div class="main bg-light py-5">
+    <div class="container">
+        <h2 class="fs-4 fw-bold text-dark mb-4">Seafarers Roster</h2>
+
+        <div class="MyBtns d-flex align-items-center gap-3 mb-5">
+            <div class="AddBtn flex-shrink-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="d-flex align-items-center gap-2 btn btn-primary btn-sm px-4 py-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    Add Seafarers
+                </button>
+            </div>
+
+            <div class="filterBtn position-relative flex-shrink-0">
+                <div class="accordion d-inline-block" id="accordionFilter">
+                    <div class="accordion-item border-0 bg-transparent">
+                        <h2 class="accordion-header" id="accordionFilterHeading">
+                            <button
+                                class="btn text-dark d-flex align-items-center gap-2 shadow border rounded px-4 py-2"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#accordionFilterBody"
+                                aria-expanded="false" aria-controls="accordionFilterBody">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="me-1" width="20" height="20"
+                                    fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                Filter
+                            </button>
+                        </h2>
+                        <div id="accordionFilterBody"
+                            class="accordion-collapse collapse position-absolute start-0 mt-2 z-3"
+                            aria-labelledby="accordionFilterHeading" data-bs-parent="#accordionFilter">
+                            <div class="accordion-body p-3 shadow border rounded bg-white"
+                                style="width: min(90vw, 600px);">
+                                <div class="row g-3">
+                                    <div class="col-md-6 position-relative">
+                                        <i
+                                            class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                                        <input type="search" id="filter-name" [(ngModel)]="text"
+                                            class="form-control ps-5" placeholder="Filter by Name or Rank..."
+                                            (ngModelChange)="currentPage = 1; updatePagination()">
+                                    </div>
+                                    <div class="col-md-6 position-relative">
+                                        <i
+                                            class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                                        <input type="search" id="filter-nationality" [(ngModel)]="text2"
+                                            class="form-control ps-5" placeholder="Filter by Mobile Number..."
+                                            (ngModelChange)="currentPage = 1; updatePagination()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="DispalyBtn flex-shrink-0">
+                <button type="button"
+                    class="bg-white text-dark px-4 py-2 rounded shadow border d-flex align-items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V7a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2z">
+                        </path>
+                    </svg>
+                    Display Columns
+                </button>
+            </div>
+        </div>
+        <div class="MyTable">
+            <div class="table-responsive shadow rounded">
+                <table class="table table-striped table-hover align-middle text-start">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" class="text-uppercase">EMP ID</th>
+                            <th scope="col" class="text-uppercase">Name</th>
+                            <th scope="col" class="text-uppercase">Nationality</th>
+                            <th scope="col" class="text-uppercase">Date of birth</th>
+                            <th scope="col" class="text-uppercase">Mobile Number</th>
+                            <th scope="col" class="text-uppercase">Email</th>
+                            <th scope="col" class="text-uppercase">Age</th>
+                            <th scope="col" class="text-uppercase">No.of Children</th>
+                            <th scope="col" class="text-uppercase">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (item of getPaginatedSeaFarers(); track item.EmpId) {
+                        <tr>
+                            <td>{{item.EmpId}}</td>
+                            <td>{{item.EmployeeName}}</td>
+                            <td>{{item.Nationality}}</td>
+                            <td>{{item.BirthDate}}</td>
+                            <td>{{item.Mobile}}</td>
+                            <td>{{item.Email}}</td>
+                            <td>{{item.Age}}</td>
+                            <td>{{item.NoOfChildren}}</td>
+                            <td class="d-flex justify-content-between">
+                                <a class="text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                    (click)="editFarer(item)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
+                                        </path>
+                                        <path fill-rule="evenodd"
+                                            d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </a>
+                                <a class="cursor-pointer" (click)="toggleSeaFarer(item)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                        [ngClass]="item.Status === 1 ? 'text-success' : 'text-danger'">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- Google-style Pagination -->
+            <div class="google-pagination mt-4 d-flex justify-content-center align-items-center">
+                <a class="page-link me-3" (click)="prevPage()" [ngClass]="{'disabled': currentPage === 1}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#1a0dab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6"></path>
+                    </svg>
+                    Previous
+                </a>
+                <div class="page-numbers d-flex">
+                    @for (page of getPageNumbers(); track page) {
+                    <a class="page-number" (click)="goToPage(page)" [ngClass]="{'active': currentPage === page}">
+                        {{page}}
+                    </a>
+                    }
+                </div>
+                <a class="page-link ms-3" (click)="nextPage()" [ngClass]="{'disabled': currentPage === totalPages}">
+                    Next
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#1a0dab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18l6-6-6-6"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered custom-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Seafarer</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex align-items-start">
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
+                        aria-orientation="vertical">
+                        <button class="nav-link active" id="v-pills-PersonalData-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-PersonalData" type="button" role="tab"
+                            aria-controls="v-pills-PersonalData" aria-selected="true">Personal Data</button>
+                        <button class="nav-link" id="v-pills-ContactData-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-ContactData" type="button" role="tab"
+                            aria-controls="v-pills-ContactData" aria-selected="false">Contact Data</button>
+                        <button class="nav-link" id="v-pills-OffshoreData-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-OffshoreData" type="button" role="tab"
+                            aria-controls="v-pills-OffshoreData" aria-selected="false">Offshore Data</button>
+                        <button class="nav-link" id="v-pills-EducationalQualifications-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-EducationalQualifications" type="button" role="tab"
+                            aria-controls="v-pills-EducationalQualifications" aria-selected="false">Educational
+                            Qualifications</button>
+                        <button class="nav-link" id="v-pills-Certificate-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-Certificate" type="button" role="tab"
+                            aria-controls="v-pills-Certificate" aria-selected="false">Certificate</button>
+                        <button class="nav-link" id="v-pills-Stcw/OtherTraining-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-Stcw/OtherTraining" type="button" role="tab"
+                            aria-controls="v-pills-Stcw/OtherTraining" aria-selected="false">Stcw/Other
+                            Training</button>
+                        <button class="nav-link" id="v-pills-LanguagesKnown-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-LanguagesKnown" type="button" role="tab"
+                            aria-controls="v-pills-LanguagesKnown" aria-selected="false">Languages Known</button>
+                        <button class="nav-link" id="v-pills-Health/MedicalData-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-Health/MedicalData" type="button" role="tab"
+                            aria-controls="v-pills-Health/MedicalData" aria-selected="false">Health/Medical
+                            Data</button>
+                        <button class="nav-link" id="v-pills-References-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-References" type="button" role="tab"
+                            aria-controls="v-pills-References" aria-selected="false">References</button>
+                    </div>
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-PersonalData" role="tabpanel"
+                            aria-labelledby="v-pills-PersonalData-tab" tabindex="0">
+                            <form id="profileForm" [formGroup]="ProfileForm"
+                                (ngSubmit)="isUpdateMode ? UpdateFarer() : SubmitForm()">
+                                <div formGroupName="entity" class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="employee">Employee</label>
+                                        <select formControlName="EmpId" class="form-select MyInput" id="employee">
+                                            <option value="">-- Select Employee --</option>
+                                            @for (Employee of EmployeeList; track Employee.Value) {
+                                            <option [value]="Employee.Value">{{Employee.Code}}</option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="nationality">Nationality</label>
+                                        <input formControlName="Nationality" type="text" class="form-control MyInput"
+                                            id="nationality" aria-label="Nationality" aria-describedby="basic-addon1">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="birthDate" class="form-label">Date of Birth</label>
+                                        <input formControlName="BirthDate" type="date" class="form-control"
+                                            id="birthDate" name="birthDate">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="disabledInput" class="form-label">Age</label>
+                                        <input type="text" id="disabledInput" class="form-control"
+                                            placeholder="Calculated Age" disabled>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="placeOfBirth">Place of Birth</label>
+                                        <input formControlName="PlaceOfBirth" type="text" class="form-control MyInput"
+                                            id="placeOfBirth" aria-label="Place of Birth"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="religion">Religion</label>
+                                        <input formControlName="Religion" type="text" class="form-control MyInput"
+                                            id="religion" aria-label="Religion" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="maritalStatus">Marital Status</label>
+                                        <input formControlName="MaritalStatus" type="text" class="form-control MyInput"
+                                            id="maritalStatus" aria-label="Marital Status"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="nameOfSpouse">Name Of Spouse</label>
+                                        <input formControlName="NameOfSpouse" type="text" class="form-control MyInput"
+                                            id="nameOfSpouse" aria-label="Name Of Spouse"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="noOfChildren">NO. Of Children</label>
+                                        <input formControlName="NoOfChildren" type="number" class="form-control MyInput"
+                                            id="noOfChildren" aria-label="Number of Children"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="bodyWeight">Body Weight (in Kg)</label>
+                                        <input formControlName="BodyWeight" type="number" class="form-control MyInput"
+                                            id="bodyWeight" aria-label="Body Weight" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="height">Height (in cm)</label>
+                                        <input formControlName="Height" type="number" class="form-control MyInput"
+                                            id="height" aria-label="Height" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="nearestAirport">Nearest Airport</label>
+                                        <input formControlName="NearestAirport" type="text" class="form-control MyInput"
+                                            id="nearestAirport" aria-label="Nearest Airport"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="remarks">Remarks</label>
+                                        <input formControlName="Remarks" type="text" class="form-control MyInput"
+                                            id="remarks" aria-label="Remarks" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="hireDate" class="form-label">Date of Hire</label>
+                                        <input formControlName="HireDate" type="date" class="form-control MyInput"
+                                            id="hireDate" name="hireDate">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="passportNumber">Passport Number</label>
+                                        <input formControlName="PassportNumber" type="text" class="form-control MyInput"
+                                            id="passportNumber" aria-label="Passport Number"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="passPortIssueDate" class="form-label">PassPort Issue Date</label>
+                                        <input formControlName="PassPortIssueDate" type="date"
+                                            class="form-control MyInput" id="passPortIssueDate"
+                                            name="passPortIssueDate">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="passPortExpiryDate" class="form-label">Passport Expiry Date</label>
+                                        <input formControlName="PassPortExpiryDate" type="date"
+                                            class="form-control MyInput" id="passPortExpiryDate"
+                                            name="passPortExpiryDate">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="rank">Rank (Job Name)</label>
+                                        <input formControlName="Rank" type="text" class="form-control MyInput" id="rank"
+                                            aria-label="Rank" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="visaSponsor">Visa Sponsor</label>
+                                        <select formControlName="VisaSponsorId" class="form-select" id="visaSponsor">
+                                            <option selected>-- Select Sponsor --</option>
+                                            @for (Visa of VisaList; track Visa.Value) {
+                                            <option [value]="Visa.Value">{{Visa.Code}}</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="visaUAEIdNO">VISA / UAE ID NO.</label>
+                                        <input formControlName="VisaUAEIdNO" type="text" class="form-control MyInput"
+                                            id="visaUAEIdNO" aria-label="Visa UAE ID NO"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="visaIssueDate" class="form-label">VISA / UAE ID ISSUE DATE</label>
+                                        <input formControlName="VisaIssueDate" type="date" class="form-control MyInput"
+                                            id="visaIssueDate" name="visaIssueDate">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="visaExpiryDate" class="form-label">VISA / UAE ID EXPIRY DATE</label>
+                                        <input formControlName="VisaExpiryDate" type="date" class="form-control MyInput"
+                                            id="visaExpiryDate" name="visaExpiryDate">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="residenceNumber">Residence Number</label>
+                                        <input formControlName="ResidenceNumber" type="text"
+                                            class="form-control MyInput" id="residenceNumber"
+                                            aria-label="Residence Number" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="healthInsuranceExpiryDate" class="form-label">Health Insurance
+                                            Expiry Date</label>
+                                        <input formControlName="HealthInsuranceExpiryDate" type="date"
+                                            class="form-control MyInput" id="healthInsuranceExpiryDate"
+                                            name="healthInsuranceExpiryDate">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tab-pane fade" id="v-pills-ContactData" role="tabpanel"
+                            aria-labelledby="v-pills-ContactData-tab" tabindex="0">
+                            <form id="profileForm" [formGroup]="ProfileForm"
+                                (ngSubmit)="isUpdateMode ? UpdateFarer() : SubmitForm()">
+                                <div formGroupName="entity" class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="email">Email</label>
+                                        <input formControlName="Email" type="email" class="form-control MyInput"
+                                            id="email" aria-label="Email" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="permanentAddressHomeCountry">Permanent Address (Home
+                                            Country)</label>
+                                        <input formControlName="PermanentAddressHomeCountry" type="text"
+                                            class="form-control MyInput" id="permanentAddressHomeCountry"
+                                            aria-label="Permanent Address" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="contactNumberHomeCountry">Contact Number (Home Country)</label>
+                                        <input formControlName="ContactNumberHomeCountry" type="text"
+                                            class="form-control MyInput" id="contactNumberHomeCountry"
+                                            aria-label="Contact Number" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="contactNameAndNumberDuringEmergenciesUAE">Contact Name & Number
+                                            During Emergencies (UAE)</label>
+                                        <input formControlName="ContactNameAndNumberDuringEmergenciesUAE" type="text"
+                                            class="form-control MyInput" id="contactNameAndNumberDuringEmergenciesUAE"
+                                            aria-label="Emergency Contact UAE" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="contactNameAndNumberDuringEmergenciesHome">Contact Name & Number
+                                            During Emergencies (Home)</label>
+                                        <input formControlName="ContactNameAndNumberDuringEmergenciesHome" type="text"
+                                            class="form-control MyInput" id="contactNameAndNumberDuringEmergenciesHome"
+                                            aria-label="Emergency Contact Home" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-OffshoreData" role="tabpanel"
+                            aria-labelledby="v-pills-OffshoreData-tab" tabindex="0">
+                            <form id="profileForm" [formGroup]="ProfileForm"
+                                (ngSubmit)="isUpdateMode ? UpdateFarer() : SubmitForm()">
+                                <div formGroupName="entity" class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="seamanBookNO">Seaman Book NO.</label>
+                                        <input formControlName="SeamanBookNO" type="text" class="form-control MyInput"
+                                            id="seamanBookNO" aria-label="Seaman Book NO"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="seamanIssueDate">Seaman Issue Date</label>
+                                        <input formControlName="SeamanIssueDate" type="date"
+                                            class="form-control MyInput" id="seamanIssueDate"
+                                            aria-label="Seaman Issue Date" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="seamanExpiryDate">Seaman Expiry Date</label>
+                                        <input formControlName="SeamanExpiryDate" type="date"
+                                            class="form-control MyInput" id="seamanExpiryDate"
+                                            aria-label="Seaman Expiry Date" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="cicpaNO">Cicpa NO</label>
+                                        <input formControlName="CicpaNO" type="text" class="form-control MyInput"
+                                            id="cicpaNO" aria-label="Cicpa NO" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="cicpaIssueDate">Cicpa Issue Date</label>
+                                        <input formControlName="CicpaIssueDate" type="date" class="form-control MyInput"
+                                            id="cicpaIssueDate" aria-label="Cicpa Issue Date"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="cicpaExpiryDate">Cicpa Expiry Date</label>
+                                        <input formControlName="CicpaExpiryDate" type="date"
+                                            class="form-control MyInput" id="cicpaExpiryDate"
+                                            aria-label="Cicpa Expiry Date" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-EducationalQualifications" role="tabpanel"
+                            aria-labelledby="v-pills-EducationalQualifications-tab" tabindex="0">
+                            <!-- Educational Qualifications content -->
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-Certificate" role="tabpanel"
+                            aria-labelledby="v-pills-Certificate-tab" tabindex="0">
+                            <!-- Certificate content -->
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-Stcw/OtherTraining" role="tabpanel"
+                            aria-labelledby="v-pills-Stcw/OtherTraining-tab" tabindex="0">
+                            <!-- Stcw/Other Training content -->
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-LanguagesKnown" role="tabpanel"
+                            aria-labelledby="v-pills-LanguagesKnown-tab" tabindex="0">
+                            <!-- Languages Known content -->
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-Health/MedicalData" role="tabpanel"
+                            aria-labelledby="v-pills-Health/MedicalData-tab" tabindex="0">
+                            <!-- Health/Medical Data content -->
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-References" role="tabpanel"
+                            aria-labelledby="v-pills-References-tab" tabindex="0">
+                            <!-- References content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="w-100 text-center">
+                    <div *ngIf="successMessage" class="alert alert-success alert-message">{{successMessage}}</div>
+                    <div *ngIf="errorMessage" class="alert alert-danger alert-message">{{errorMessage}}</div>
+                </div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button [ngClass]="{'d-none': isUpdateMode}" type="submit" class="btn btn-primary"
+                    form="profileForm">Save Seafarer</button>
+                <button [ngClass]="{'d-none': !isUpdateMode}" type="submit" class="btn btn-primary"
+                    form="profileForm">Update Seafarer</button>
+            </div>
+        </div>
+    </div>
+</div>
