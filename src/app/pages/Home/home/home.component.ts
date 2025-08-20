@@ -12,10 +12,11 @@ import { CommonModule, NgClass } from '@angular/common';
 import { EmployeeIdService } from '../../../core/services/EmployeeId/employee-id.service';
 import { VisaIdService } from '../../../core/services/VisaId/visa-id.service';
 import { IVisa } from '../../../shared/interfaces/ivisa';
+import { NavbarComponent } from "../../../layouts/Navbar/navbar/navbar.component";
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, ReactiveFormsModule, NgClass, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, NgClass, CommonModule, NavbarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
